@@ -1,0 +1,123 @@
+\documentclass{article}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{breakurl}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\title{Fitting and visualising row-linear models with \texttt{consensus}}
+
+\author{Tim Peters}
+\maketitle
+
+\renewcommand{\abstractname}{Summary}
+\begin{abstract}
+This short vignette will demonstrate how to fit a set of row-linear models in the form of an interlaboratory testing procedure (ASTM Standard E691) in a genomic context. This allows us to make comparisons of sensitivity and precision for each platform/condition the samples are measured under. We can then make broader inferences about the suitability of a given technology. 
+\end{abstract}
+
+In an ideal world we would like a set of ``gold standards'' to validate a new technology or laboratory protocol when quantifying various genomic characteristics. The problem with this is that \emph{all} genomic measurements are estimates, even those that are seen as more reliable, such as qPCR. Stochastic sampling of individual molecules (and their subsequent amplification) is an inescapable part of most modern laboratory protocols, which means that, inevitably, there will always be error present in the measurement. Rather than ignore this error and defining a ``gold standard'' (thus biasing all subsequent measurements towards that standard), the aim of this package is to encourage an empirical approach to characterising the advantages and disadvantages of a suite of candidate technological platforms, laboratory protocols or other various conditions that may influence the measurement. With this in mind, we start with some normalised gene expression data sourced from The Cancer Genome Atlas (TCGA) glioblastoma multiforme (GBM) project \cite{Verhaak}.
+
+<<loaddata, message=FALSE>>=
+library(consensus)
+data("TCGA")
+@
+
+We have 27 matched samples assayed across four different gene expression measurement platforms: Affymetrix-HT-HG-U133A GeneChip,  Affymetrix HuEx GeneChip, Custom Agilent 244,000 feature Gene Expression Microarray and a polyA selection RNA-Seq protocol. We have selected 1000 genes at random for this test dataset.
+
+<<lookatdata>>=
+dims <- lapply(mget(ls()), dim)
+outer(dims, dims, Vectorize(all.equal))
+rm(dims)
+rnames <- lapply(mget(ls()), rownames)
+outer(rnames, rnames, Vectorize(all.equal))
+rm(rnames)
+cnames <- lapply(mget(ls()), colnames)
+outer(cnames, cnames, Vectorize(all.equal))
+rm(cnames)
+
+@
+
+Notice that the dimensions, row names and column names are identical across all measurement matrices. This is required for when we construct a MultiMeasure object from this data. If this requirement is not met, an error message will tell you which matrix attributes don't match.
+
+Now we construct the MultiMeasure:
+
+<<mm>>=
+tcga_mm <- MultiMeasure(names=c("U133A", "Huex", "Agilent", "RNA-Seq"), 
+                        data=list(U133A, Huex, Agilent, RNASeq))
+tcga_mm
+@
+
+We can fit the data using the row-linear method from the ASTM standard \cite{Mandel}. One fit is performed for each gene represented by the matrix. The row-linear fit can be expressed in the form: 
+
+\begin{equation}
+Z_{ij} = a_{i} + b_{i}(x_{j} - \bar{x}) + d_{ij}
+\end{equation}
+
+where $Z_{ij}$ is 4x27 matrix of measurements from sample $j$ on platform $i$. $a_i$ is row mean of the $i$th platform, $x_j$ the column mean of the $j$th sample and $\bar{x}$ the grand mean of $Z_{ij}$. $b_i$ is the slope of the regression of the sample measurements from platform $i$ on $x_j - \bar{x}$, and $d_{ij}$ the residual scatter about this line.
+
+Firstly, let's visualise one of these fits, from a well-known gene, TP53:
+
+<<tp53>>=
+plotOneFit(tcga_mm, "TP53", brewer.pal(n = 4, name = "Dark2"))
+@
+
+This gene is generally concordant across platforms, since the regression lines are fairly parallel and the residuals don't fall too far away.
+
+Now to perform the fitting. This will create a S4 class object of type ConsensusFit.
+
+<<fit>>=
+fit <- fitConsensus(tcga_mm)
+fit
+@
+
+Once this is done, we might be interested in seeing what the distributions of some parameters from Equation (1) look like over all 1000 genes. First, let's see what the distribution of the averages ($a_i$s) are, which serve as dynamic ranges of each platform:
+
+<<margave>>=
+plotMarginals(fit, "average", brewer.pal(n = 4, name = "Dark2"))
+@
+
+Then we can see which platforms have the greatest sensitivity ($b_i$) to changes in gene expression:
+
+<<margsens>>=
+plotMarginals(fit, "sensitivity", brewer.pal(n = 4, name = "Dark2"))
+@
+
+Clearly, RNA-Seq is the most sensitive, followed by the Agilent array, then Huex and finally U133A. Interestingly, U133A has a second mode at 0, which is indicative of a subset of genes that do not show any response to expression change on this platform. The marginals of the averages for this platform show a right skew, which contributes to this phenomenon. 
+
+Let's plot the precision ($d_i$) marginals, remembering that higher values mean lower precision:
+
+<<margprec>>=
+plotMarginals(fit, "precision", brewer.pal(n = 4, name = "Dark2"))
+@
+
+All platforms except U133A are generally similar in their precision, suggesting that, from a platform design perspective, there may have been a trade-off between risk and reward in detecting changes in gene expression on U133A that has now been surmounted by more recent technologies.
+
+Finally, we are interested in the gene loci whose measurements are the most \emph{dis}cordant across platforms. These are most easily visualised on a heatmap. Like with \texttt{plotMarginals}, we can choose to plot discordance in terms of average, sensitivity or precision.
+
+<<pmdsens>>=
+plotMostDiscordant(fit, "sensitivity", 15)
+@
+
+We that the governing feature of the most sensitivity-discordant genes is that RNA-Seq explains the vast majority of change in gene expression. To see what a row-linear fit looks like for one of these genes, we again use \texttt{plotOneFit}. 
+
+<<my07b>>=
+plotOneFit(tcga_mm, "MYO7B", brewer.pal(n = 4, name = "Dark2"))
+@
+
+<<sessionInfo>>=
+sessionInfo()
+@
+
+\begin{thebibliography}{9}
+
+\bibitem{Verhaak}
+  Verhaak, R. G. W., Hoadley, K. A., Purdom, E., Wang, V., Qi, Y., Wilkerson, M. D., ..., Cancer Genome Atlas Research Network. Integrated genomic analysis identifies clinically relevant subtypes of glioblastoma characterized by abnormalities in PDGFRA, IDH1, EGFR, and NF1. \emph{Cancer Cell}, 2010, \textbf{17}(1), 98-110. 
+  
+\bibitem{Mandel}
+Mandel, J. Analyzing Interlaboratory Data According to ASTM Standard E691. In \emph{Quality and Statistics: Total Quality Management} (pp. 59-59-12), 1994. 100 Barr Harbor Drive, PO Box C700, West Conshohocken, PA 19428-2959: ASTM International.
+
+\end{thebibliography}
+
+
+\end{document}
