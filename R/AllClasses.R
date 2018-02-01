@@ -23,7 +23,7 @@ checkMM <- function(object) {
   if (!all(dimcheck)){
     message("Error: Not all matrix dimensions are identical across platforms. Dimension equalities:")
     print(dimcheck)
-    return(FALSE)
+    stop()
   }
   
   columnnames <- lapply(object@data, colnames)
@@ -47,7 +47,7 @@ checkMM <- function(object) {
   if (!all(rowcheck)){
     message("Error: Not all locus names (rownames) are identical across platforms. Equalities:")
     print(rowcheck)
-    return(FALSE)
+    stop()
   }
   
   if (length_data > ncol(object@data[[1]]) - 1){
