@@ -7,13 +7,14 @@ Plot a single row-linear fit from a genomic locus
 Plots a series of regressions of platform measurements against their consensus mean.
 }
 \usage{
-plotOneFit(multimeas, idx, pal=palette())
+plotOneFit(multimeas, idx, pal=palette(), ...)
 }
 
 \arguments{
   \item{multimeas}{An object of class \code{MultiMeasure.}}
   \item{idx}{Row index of the set of matrices in \code{multimeas}.}
   \item{pal}{Color palette. Length must be at least the length of multimeas@data.}
+  \item{\dots}{Extra arguments passed to \code{legend()}.}
 }
 
 \details{

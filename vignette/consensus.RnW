@@ -99,7 +99,7 @@ Finally, we are interested in the gene loci whose measurements are the most \emp
 plotMostDiscordant(fit, "sensitivity", 15)
 @
 
-We that the governing feature of the most sensitivity-discordant genes is that RNA-Seq explains the vast majority of change in gene expression. To see what a row-linear fit looks like for one of these genes, we again use \texttt{plotOneFit}. 
+Clearly, the governing feature of the most sensitivity-discordant genes is that RNA-Seq explains the vast majority of change in gene expression. To see what a row-linear fit looks like for one of these genes, we again use \texttt{plotOneFit}. 
 
 <<my07b>>=
 plotOneFit(tcga_mm, "MYO7B", brewer.pal(n = 4, name = "Dark2"))

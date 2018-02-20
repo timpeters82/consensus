@@ -1,4 +1,4 @@
-plotMarginals <- function(consfit, param=c("average", "sensitivity", "precision"), pal=palette()){
+plotMarginals <- function(consfit, param=c("average", "sensitivity", "precision"), pal=palette(), xlim=NULL, ...){
   
   stopifnot(class(consfit)=="ConsensusFit")
   param <- match.arg(param)
@@ -9,11 +9,16 @@ plotMarginals <- function(consfit, param=c("average", "sensitivity", "precision"
   
   toplot <- switch(param, average = {consfit@a_i}, sensitivity = {consfit@b_i}, precision = {log(consfit@d_i)})
   
+  if(is.null(xlim)){
+    xlim=range(toplot)
+  }
+  
   densities <- apply(toplot, 2, density)
   maxdens <- max(unlist(lapply(densities, function (x) max(x$y))))
   
   plabel <- switch(param, average = {"a_i"}, sensitivity = {"b_i"}, precision = "Log (d_i)")
-  plot(1, 1, xlim=range(toplot), ylim=c(-(maxdens/10), maxdens), type="n", xlab=plabel, ylab="Density", main=paste0("Marginals: ", param))
+  plot(1, 1, xlim=xlim, ylim=c(-(maxdens/10), maxdens), type="n", 
+       xlab=plabel, ylab="Density", main=paste0("Marginals: ", param))
   
   for (i in seq_len(ncol(toplot))){
     lines(densities[[i]], lwd=2, col=pal[i])
@@ -21,6 +26,6 @@ plotMarginals <- function(consfit, param=c("average", "sensitivity", "precision"
 
   abline(h=0, col="gray")
   
-  legend(min(toplot), 0, colnames(toplot), text.col=pal, horiz=T, bty="n")
+  legend(min(toplot), 0, colnames(toplot), text.col=pal, horiz=T, bty="n", ...)
   
 }

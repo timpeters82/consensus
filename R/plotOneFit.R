@@ -1,7 +1,11 @@
-plotOneFit <- function(multimeas, idx, pal=palette()){
+plotOneFit <- function(multimeas, idx, pal=palette(), ...){
   
   if(length(pal) < length(multimeas@data)){
     stop("Palette size must be at least the number of platforms/conditions")
+  }
+  
+  if(!idx %in% rownames(multimeas@data[[1]])){
+    stop("Gene ID is not recognised. Check rownames of the data you passed to MultiMeasure().")
   }
   
   block <- getBlock(multimeas, idx)
@@ -22,6 +26,6 @@ plotOneFit <- function(multimeas, idx, pal=palette()){
     
   }
   
-  legend(min(means), min(block), names(multimeas), text.col=pal, horiz=T, bty="n")
+  legend(min(means), min(block), names(multimeas), text.col=pal, horiz=T, bty="n", ...)
   
 }

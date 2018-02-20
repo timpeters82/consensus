@@ -9,13 +9,15 @@ Plots a series of marginal densities for each platform for either (a) average, (
 \usage{
 plotMarginals(consfit, 
 	      param=c("average", "sensitivity", "precision"), 
-	      pal=palette())
+	      pal=palette(), xlim=NULL, ...)
 }
 
 \arguments{
   \item{consfit}{An object of class \code{ConsensusFit}.}
   \item{param}{Whether average (\eqn{a_i}), sensitivity (\eqn{b_i}) or precision (\eqn{d_i}) is plotted.}
   \item{pal}{Colour palette. Length must be at least the number of platforms/conditions.}
+  \item{xlim}{Range of values to be plotted. If \code{NULL} then the entire density is plotted.}
+  \item{\dots}{Extra arguments passed to \code{legend()}.}
 }
 
 \details{
