@@ -26,6 +26,6 @@ plotOneFit <- function(multimeas, idx, pal=palette(), ...){
     
   }
   
-  legend(min(means), min(block), names(multimeas), text.col=pal, horiz=T, bty="n", ...)
+  legend(min(means), min(block), names(multimeas), text.col=pal, horiz=TRUE, bty="n", ...)
   
 }

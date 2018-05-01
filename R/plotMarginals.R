@@ -26,6 +26,6 @@ plotMarginals <- function(consfit, param=c("average", "sensitivity", "precision"
 
   abline(h=0, col="gray")
   
-  legend(min(toplot), 0, colnames(toplot), text.col=pal, horiz=T, bty="n", ...)
+  legend(min(toplot), 0, colnames(toplot), text.col=pal, horiz=TRUE, bty="n", ...)
   
 }
