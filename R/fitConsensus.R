@@ -1,6 +1,6 @@
 fitConsensus <- function(multimeas){
   
-  mandel_results <- lapply(seq_len(multimeas@data[[1]]), function (x) fitMandel(multimeas, x))
+  mandel_results <- lapply(seq_len(nrow(multimeas@data[[1]])), function (x) fitMandel(multimeas, x))
   
   a_i <- do.call(rbind, lapply(mandel_results, function (x) x$a_i))
   b_i <- do.call(rbind, lapply(mandel_results, function (x) x$b_i))
