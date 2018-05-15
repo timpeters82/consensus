@@ -4,7 +4,8 @@
 \usepackage{breakurl}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Fitting and visualising row-linear models with \texttt{consensus}}
+%\VignetteEngine{knitr::knitr}
 \begin{document}
 
 \title{Fitting and visualising row-linear models with \texttt{consensus}}
