@@ -1,6 +1,6 @@
 Package: consensus
 Title: Cross-platform consensus analysis of genomic measurements via interlaboratory testing method
-Version: 0.99.4
+Version: 0.99.5
 Date: 2018-15-05
 Author: Tim Peters
 Maintainer: Tim Peters <t.peters@garvan.org.au>
@@ -10,6 +10,6 @@ Description: An implementation of the American Society for Testing and Materials
 Depends: R (>= 3.5), RColorBrewer
 Imports: matrixStats, gplots, grDevices, methods, graphics, stats, utils
 biocViews: QualityControl, Regression, DataRepresentation, GeneExpression, Microarray
-Suggests: knitr, RUnit, BiocGenerics
+Suggests: knitr, RUnit, rmarkdown, BiocGenerics
 License: BSD_3_clause + file LICENSE
 VignetteBuilder: knitr
