@@ -20,10 +20,6 @@ This short vignette will demonstrate how to fit a set of row-linear models in th
 
 In an ideal world we would like a set of ``gold standards'' to validate a new technology or laboratory protocol when quantifying various genomic characteristics. The problem with this is that \emph{all} genomic measurements are estimates, even those that are seen as more reliable, such as qPCR. Stochastic sampling of individual molecules (and their subsequent amplification) is an inescapable part of most modern laboratory protocols, which means that, inevitably, there will always be error present in the measurement. Rather than ignore this error and defining a ``gold standard'' (thus biasing all subsequent measurements towards that standard), the aim of this package is to encourage an empirical approach to characterising the advantages and disadvantages of a suite of candidate technological platforms, laboratory protocols or other various conditions that may influence the measurement. With this in mind, we start with some normalised gene expression data sourced from The Cancer Genome Atlas (TCGA) glioblastoma multiforme (GBM) project \cite{Verhaak}.
 
-<<rmarkdown, eval=FALSE>>=
-library(rmarkdown)
-@
-
 <<loaddata, message=FALSE>>=
 library(consensus)
 data("TCGA")
