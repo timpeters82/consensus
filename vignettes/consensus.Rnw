@@ -34,16 +34,14 @@ data("TCGA")
 We have 27 matched samples assayed across four different gene expression measurement platforms: Affymetrix-HT-HG-U133A GeneChip,  Affymetrix HuEx GeneChip, Custom Agilent 244,000 feature Gene Expression Microarray and a polyA selection RNA-Seq protocol. We have selected 1000 genes at random for this test dataset.
 
 <<lookatdata>>=
-dims <- lapply(mget(ls()), dim)
-outer(dims, dims, Vectorize(all.equal))
-rm(dims)
-rnames <- lapply(mget(ls()), rownames)
-outer(rnames, rnames, Vectorize(all.equal))
-rm(rnames)
-cnames <- lapply(mget(ls()), colnames)
-outer(cnames, cnames, Vectorize(all.equal))
-rm(cnames)
-
+sapply(mget(c("U133A", "Huex", "Agilent", "RNASeq")), dim)
+rnames <- sapply(mget(c("U133A", "Huex", "Agilent", "RNASeq")), rownames)
+head(rnames)
+apply(rnames[,2:ncol(rnames)], 2, function (x) all(x==rnames[,1]))
+cnames <- sapply(mget(c("U133A", "Huex", "Agilent", "RNASeq")), colnames)
+head(cnames)
+apply(rnames[,2:ncol(rnames)], 2, function (x) all(x==rnames[,1]))
+rm(rnames, cnames)
 @
 
 Notice that the dimensions, row names and column names are identical across all measurement matrices. This is required for when we construct a MultiMeasure object from this data. If this requirement is not met, an error message will tell you which matrix attributes don't match.
@@ -112,6 +110,8 @@ Clearly, the governing feature of the most sensitivity-discordant genes is that 
 <<my07b>>=
 plotOneFit(tcga_mm, "MYO7B", brewer.pal(n = 4, name = "Dark2"))
 @
+
+We have seen that the row-linear model is able to provide us with a method of assessing the measurement quality of various transcriptomic platforms, that acts as an alternative to a ``gold standard''. The model need not be restricted to gene expression either - platforms assessing other measurements such as DNA methylation are just as applicable. The method can also be used to assess competing laboratory protocols, given a suite of matched aliquots of material are provided across three or more variations on such processes.
 
 <<sessionInfo>>=
 sessionInfo()
