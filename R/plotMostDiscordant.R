@@ -1,7 +1,7 @@
 plotMostDiscordant <- function(consfit, param=c("average", "sensitivity", "precision"), 
                                numloci=20, pal=colorRampPalette(brewer.pal(9, "RdYlGn"))){
   
-  stopifnot(class(consfit)=="ConsensusFit")
+  stopifnot(is(consfit,"ConsensusFit"))
   param <- match.arg(param)
   
   by <- switch(param, average = {length(consfit@V_a) - rank(consfit@V_a) + 1}, 

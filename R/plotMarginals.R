@@ -1,6 +1,6 @@
 plotMarginals <- function(consfit, param=c("average", "sensitivity", "precision"), pal=palette(), xlim=NULL, ...){
   
-  stopifnot(class(consfit)=="ConsensusFit")
+  stopifnot(is(consfit,"ConsensusFit"))
   param <- match.arg(param)
   
   if(length(pal) < ncol(consfit@a_i)){
