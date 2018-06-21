@@ -50,10 +50,6 @@ checkMM <- function(object) {
     stop()
   }
   
-  if (length_data > ncol(object@data[[1]]) - 1){
-    stop("Number of matrices must be n-1 or less for a consensus fit. More samples are needed.")
-  }
-  
   TRUE
   }
 
