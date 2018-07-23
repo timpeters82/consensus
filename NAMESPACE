@@ -1,4 +1,3 @@
-exportPattern("^[[:alpha:]]+")
 import(methods)
 import(RColorBrewer)
 importFrom("gplots",heatmap.2)
@@ -7,11 +6,10 @@ importFrom("utils","data")
 importFrom("grDevices", "colorRampPalette", "palette")
 importFrom("graphics", "plot", "abline", "legend", "lines", "points")
 importFrom("stats", "lm", "density", "var")
-export(MultiMeasure)
-exportMethods(
-	fitConsensus, 
-	plotOneFit, 
-	plotMarginals,
-	plotMostDiscordant
-	)
+export(MultiMeasure,
+       fitConsensus, 
+       plotOneFit, 
+       plotMarginals,
+       plotMostDiscordant
+       )
 
