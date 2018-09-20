@@ -1,0 +1,28 @@
+citEntry(entry="article",
+         author = c(person(c("Timothy","J"),"Peters"),
+                    person(c("Hugh","J"),"French"),
+                    person(c("Stephen","T"),"Bradford"),
+                    person("Ruth","Pidsley"),
+                    person("Clare","Stirzaker"),
+                    person("Hilal","Varinli"),
+                    person("Shalima","Nair"),
+                    person("Wenjia","Qu"),
+                    person("Jenny","Song"),
+                    person(c("Katherine","A"),"Giles"),
+                    person(c("Aaron","L"),"Statham"),
+                    person("Helen","Speirs"),
+                    person(c("Terence","P"),"Speed"),
+                    person(c("Susan","J"),"Clark")),
+                    title = "Evaluation of cross-platform and interlaboratory concordance via consensus modelling of genomic measurements",
+                    journal = "Bioinformatics",
+                    year = 2018,
+                    volume = "in press",
+                    url = "https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty675/5063406",
+                    textVersion = paste(sep="",
+                                        "Peters, T. J., French, H. J., Bradford, S. T., Pidsley, R., Stirzaker, C., Varinli, H., Nair, S., Qu, W., Song, J., Giles, K. A., Statham, A. S., Speirs, H., Speed, T. S. and S. J. Clark. ",
+                                        "Evaluation of cross-platform and interlaboratory concordance via consensus modelling of genomic measurements, ",
+                                        "Bioinformatics, ", "2018, ", "in press, ", "doi:10.1093/bioinformatics/bty675."
+                    )
+         )
+         
+         
