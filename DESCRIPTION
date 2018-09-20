@@ -1,13 +1,13 @@
 Package: consensus
 Title: Cross-platform consensus analysis of genomic measurements via interlaboratory testing method
-Version: 0.99.15
+Version: 0.99.16
 Date: 2018-20-09
 Author: Tim Peters
 Maintainer: Tim Peters <t.peters@garvan.org.au>
 Authors@R: c(person("Tim", "Peters", role = c("cre", "aut"),
                     email = "t.peters@garvan.org.au"),
 	     person("Benedetta Frida", "Baldi", role = "art",
-		    email = "b.baldi@garvan.org.au")
+		    email = "b.baldi@garvan.org.au"))
 Description: An implementation of the American Society for Testing and Materials (ASTM) Standard E691 for interlaboratory testing procedures, designed for cross-platform genomic measurements. Given three (3) or more genomic platforms or laboratory protocols, this package provides interlaboratory testing procedures giving per-locus comparisons for sensitivity and precision between platforms.   
 Depends: R (>= 3.5), RColorBrewer
 Imports: matrixStats, gplots, grDevices, methods, graphics, stats, utils
