@@ -19,9 +19,9 @@ citEntry(entry="article",
                     volume = "in press",
                     url = "https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty675/5063406",
                     textVersion = paste(sep="",
-                                        "Peters, T. J., French, H. J., Bradford, S. T., Pidsley, R., Stirzaker, C., Varinli, H., Nair, S., Qu, W., Song, J., Giles, K. A., Statham, A. S., Speirs, H., Speed, T. S. and S. J. Clark. ",
-                                        "Evaluation of cross-platform and interlaboratory concordance via consensus modelling of genomic measurements, ",
-                                        "Bioinformatics, ", "2018, ", "in press, ", "doi:10.1093/bioinformatics/bty675."
+                                        "Peters, T. J., French, H. J., Bradford, S. T., Pidsley, R., Stirzaker, C., Varinli, H., Nair, S., Qu, W., Song, J., Giles, K. A., Statham, A. S., Speirs, H., Speed, T. S. and S. J. Clark. ", "(2019). ",
+                                        "Evaluation of cross-platform and interlaboratory concordance via consensus modelling of genomic measurements. ",
+                                        "Bioinformatics ", "35(4), 560-570. ", "doi:10.1093/bioinformatics/bty675."
                     )
          )
          
